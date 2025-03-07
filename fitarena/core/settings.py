@@ -27,18 +27,22 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 
+AUTH_USER_MODEL = 'users.User'
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = ["*"]
 
 # Redis settings
-REDIS_HOST = env('REDIS_HOST')
-REDIS_PORT = env('REDIS_PORT')
+REDIS_HOST = env('REDIS_HOST', default='redis')
+REDIS_PORT = env('REDIS_PORT', default=6379)
+OTP_SECRET = env('OTP_SECRET')
 
 # Celery settings
-CELERY_BROKER_URL = env('CELERY_BROKER', default='redis://localhost:6379/0')
-CELERY_RESULT_BACKEND = env('CELERY_BACKEND', default='redis://localhost:6379/0')
+#CELERY_BROKER_URL = env('CELERY_BROKER', default='redis://localhost:6379/0')
+#CELERY_RESULT_BACKEND = env('CELERY_BACKEND', default='redis://localhost:6379/0')
 # Application definition
 
 INSTALLED_APPS = [
@@ -140,6 +144,17 @@ STORAGES = {
 
 
 
+
+# settings.py
+
+# Email Configuration for Gmail SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Gmail SMTP server
+EMAIL_PORT = 587  # Use port 587 for TLS
+EMAIL_USE_TLS = True  # Use TLS for security
+EMAIL_HOST_USER = 'mrak4579@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = 'cbl zpvz mync vgsq'  # Your generated app password (16-character)
+DEFAULT_FROM_EMAIL = 'mrak4579@gmail.com'
 
 
 

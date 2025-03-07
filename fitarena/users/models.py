@@ -8,3 +8,17 @@ class TestImage(models.Model):
 
     def __str__(self):
         return self.name
+
+class User(AbstractUser):
+    ROLE_CHOICES = [
+        ('user', 'User'),
+        ('admin', 'Admin'),
+        ('trainer', 'Trainer'),
+        ('stadium_owner', 'Stadium Owner'),
+    ]
+    email =  models.EmailField(unique=True)
+    role = models.CharField(max_length=20,choices=ROLE_CHOICES,default='user')
+    profile_photo  = models.ImageField(upload_to='profile_photos/',default='https://fitarena.s3.amazonaws.com/test_uploads/profile-default.png')
+    is_verified = models.BooleanField(default=False)
+    def __str__(self):
+        return self.username
